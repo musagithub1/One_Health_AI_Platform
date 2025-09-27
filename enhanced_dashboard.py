@@ -7,20 +7,499 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 from datetime import datetime, timedelta
 import random
-from ai_services import ai_insights, health_prediction, breed_detection
+
+# Mock AI services to replace the missing imports
+class MockAIServices:
+    """Mock AI services for demonstration"""
+    
+    @staticmethod
+    def generate_platform_insights(data):
+        return {
+            "insights": {
+                "pet_population_analysis": {
+                    "total_pets": 1247,
+                    "growth_rate": 12.5,
+                    "species_distribution": {
+                        "dogs": 45.4,
+                        "cats": 33.8
+                    }
+                },
+                "health_trends": {
+                    "average_health_score": 8.7,
+                    "vaccination_compliance": 94.2,
+                    "preventive_care_adoption": 78.5
+                }
+            },
+            "recommendations": [
+                {
+                    "area": "Vaccination",
+                    "recommendation": "Increase vaccination campaigns in suburban areas",
+                    "priority": "High",
+                    "impact": "15% improvement"
+                },
+                {
+                    "area": "Recovery",
+                    "recommendation": "Implement AI-based recovery alerts",
+                    "priority": "Medium",
+                    "impact": "10% faster recovery"
+                },
+                {
+                    "area": "Health",
+                    "recommendation": "Introduce preventive care packages",
+                    "priority": "High",
+                    "impact": "20% better health scores"
+                }
+            ]
+        }
+
+# Initialize mock services
+ai_insights = MockAIServices()
+health_prediction = MockAIServices()
+breed_detection = MockAIServices()
 
 class EnhancedDashboard:
     """Enhanced dashboard with AI-powered insights and analytics"""
     
-    def __init__(self, database):
+    def __init__(self, database=None):
         self.db = database
         self.ai_insights_service = ai_insights
+        self._setup_custom_css()
+
+    def _setup_custom_css(self):
+        """Setup custom CSS for better text visibility and styling - IMPROVED VERSION"""
+        st.markdown("""
+        <style>
+        /* FIXED METRIC CARD - ENSURED WHITE TEXT */
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            padding: 20px;
+            border-radius: 15px;
+            color: #ffffff !important;
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .metric-card h4 {
+            color: #ffffff !important;
+            font-weight: 700 !important;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
+        
+        .metric-card p {
+            color: #ffffff !important;
+            margin: 8px 0;
+            font-size: 0.95em;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+        }
+        
+        .metric-card strong {
+            color: #ffffff !important;
+            font-weight: 600 !important;
+        }
+        
+        /* FIXED AI BADGE - ENSURED WHITE TEXT */
+        .ai-badge {
+            background: rgba(255, 255, 255, 0.2) !important;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            margin-top: 10px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+            color: #ffffff !important;
+            font-weight: 600 !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
+        
+        /* FIXED ENHANCEMENT HIGHLIGHT - ENSURED WHITE TEXT */
+        .enhancement-highlight {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            color: #ffffff !important;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .enhancement-highlight strong {
+            color: #ffffff !important;
+            font-weight: 600 !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
+        
+        .enhancement-highlight small {
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+        }
+        
+        /* Improve plotly chart text visibility */
+        .js-plotly-plot .plotly .main-svg {
+            background-color: transparent !important;
+        }
+        
+        .js-plotly-plot .plotly .xtitle, .js-plotly-plot .plotly .ytitle {
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            color: #2c3e50 !important;
+        }
+        
+        /* FIXED METRIC COMPONENT STYLING */
+        .stMetric {
+            background: rgba(102, 126, 234, 0.1) !important;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .stMetric label {
+            color: #2d3748 !important;
+            font-weight: 600 !important;
+        }
+
+        .stMetric div {
+            color: #2d3748 !important;
+        }
+
+        .stMetric [data-testid="metric-container"] {
+            color: #2d3748 !important;
+        }
+
+        .stMetric [data-testid="metric-container"] > div {
+            color: #2d3748 !important;
+        }
+        
+        /* FIXED TAB STYLING - IMPROVED TEXT VISIBILITY */
+        .stTabs [data-baseweb="tab-list"] {
+            gap: 8px;
+        }
+        
+        .stTabs [data-baseweb="tab"] {
+            background: rgba(102, 126, 234, 0.1) !important;
+            border-radius: 8px 8px 0 0;
+            padding: 10px 20px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            color: #4a5568 !important;
+            font-weight: 500 !important;
+        }
+        
+        .stTabs [aria-selected="true"] {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: #ffffff !important;
+            font-weight: 600 !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
+
+        .stTabs [aria-selected="true"] span {
+            color: #ffffff !important;
+        }
+
+        .stTabs [aria-selected="true"] div {
+            color: #ffffff !important;
+        }
+        
+        /* Column spacing */
+        .block-container {
+            padding-top: 2rem;
+            color: #2d3748 !important;
+        }
+
+        /* COMPREHENSIVE TEXT VISIBILITY FIXES */
+        
+        /* Ensure all regular text is dark for readability */
+        h1, h2, h3, h4, h5, h6 {
+            color: #1a202c !important;
+        }
+        
+        p, div, span, label {
+            color: #2d3748 !important;
+        }
+        
+        .stMarkdown {
+            color: #2d3748 !important;
+        }
+        
+        .stMarkdown p {
+            color: #2d3748 !important;
+        }
+        
+        .stMarkdown div {
+            color: #2d3748 !important;
+        }
+
+        /* FIXED BUTTON STYLES - IMPROVED TEXT VISIBILITY */
+        .stButton > button {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: #ffffff !important;
+            border: none !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600 !important;
+            font-size: 1rem !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
+
+        .stButton > button:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            color: #ffffff !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+        }
+
+        .stButton > button:focus {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
+
+        .stButton > button:active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
+
+        /* FIXED SELECTBOX STYLES */
+        .stSelectbox > div > div {
+            background: white !important;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            color: #2d3748 !important;
+        }
+        
+        .stSelectbox > div > div:focus-within {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* FIXED SELECTBOX TEXT COLOR */
+        .stSelectbox div[data-baseweb="select"] > div {
+            color: #2d3748 !important;
+        }
+
+        .stSelectbox div[data-baseweb="select"] span {
+            color: #2d3748 !important;
+        }
+
+        .stSelectbox div[data-baseweb="select"] div[role="button"] {
+            color: #2d3748 !important;
+        }
+
+        /* Input field text color - ENHANCED */
+        .stTextInput input, .stTextArea textarea {
+            color: #2d3748 !important;
+            background-color: #ffffff !important;
+        }
+        
+        .stNumberInput input {
+            color: #2d3748 !important;
+            background-color: #ffffff !important;
+        }
+        
+        .stDateInput input {
+            color: #2d3748 !important;
+            background-color: #ffffff !important;
+        }
+        
+        .stTimeInput input {
+            color: #2d3748 !important;
+            background-color: #ffffff !important;
+        }
+
+        /* File uploader text */
+        .stFileUploader label {
+            color: #2d3748 !important;
+        }
+
+        .stFileUploader div {
+            color: #2d3748 !important;
+        }
+
+        .stFileUploader span {
+            color: #2d3748 !important;
+        }
+        
+        /* Data editor text */
+        .stDataEditor {
+            color: #2d3748 !important;
+        }
+        
+        /* Expander text */
+        .streamlit-expanderHeader {
+            color: #2d3748 !important;
+            font-weight: 600;
+        }
+        
+        /* Success, warning, error messages */
+        .stAlert {
+            color: #2d3748 !important;
+        }
+
+        .stAlert div {
+            color: #2d3748 !important;
+        }
+
+        .stAlert span {
+            color: #2d3748 !important;
+        }
+        
+        /* Code blocks */
+        .stCodeBlock {
+            color: #2d3748 !important;
+        }
+        
+        /* Streamlit default text elements - COMPREHENSIVE */
+        .stText, .stMarkdown, .stWrite {
+            color: #2d3748 !important;
+        }
+
+        .stText div, .stMarkdown div, .stWrite div {
+            color: #2d3748 !important;
+        }
+
+        .stText p, .stMarkdown p, .stWrite p {
+            color: #2d3748 !important;
+        }
+
+        .stText span, .stMarkdown span, .stWrite span {
+            color: #2d3748 !important;
+        }
+        
+        /* Ensure all Streamlit text is visible */
+        .element-container {
+            color: #2d3748 !important;
+        }
+
+        .element-container div {
+            color: #2d3748 !important;
+        }
+
+        .element-container p {
+            color: #2d3748 !important;
+        }
+
+        .element-container span {
+            color: #2d3748 !important;
+        }
+
+        /* ADDITIONAL FIXES FOR SPECIFIC STREAMLIT COMPONENTS */
+        
+        /* Radio button text */
+        .stRadio label {
+            color: #2d3748 !important;
+        }
+
+        .stRadio div {
+            color: #2d3748 !important;
+        }
+
+        /* Checkbox text */
+        .stCheckbox label {
+            color: #2d3748 !important;
+        }
+
+        .stCheckbox div {
+            color: #2d3748 !important;
+        }
+
+        /* Slider text */
+        .stSlider label {
+            color: #2d3748 !important;
+        }
+
+        .stSlider div {
+            color: #2d3748 !important;
+        }
+
+        /* Progress bar text */
+        .stProgress div {
+            color: #2d3748 !important;
+        }
+
+        /* Caption text */
+        .stCaption {
+            color: #4a5568 !important;
+        }
+
+        /* Form labels */
+        .stForm label {
+            color: #2d3748 !important;
+        }
+
+        .stForm div {
+            color: #2d3748 !important;
+        }
+
+        /* Dataframe text */
+        .stDataFrame {
+            color: #2d3748 !important;
+        }
+
+        /* JSON text */
+        .stJson {
+            color: #2d3748 !important;
+        }
+
+        /* OVERRIDE ANY REMAINING TEXT COLOR ISSUES */
+        * {
+            color: inherit !important;
+        }
+
+        /* But ensure specific elements maintain their intended white colors */
+        .metric-card, .metric-card *,
+        .ai-badge, .ai-badge *,
+        .enhancement-highlight, .enhancement-highlight *,
+        .stTabs [aria-selected="true"], .stTabs [aria-selected="true"] *,
+        .stButton > button, .stButton > button *,
+        div[style*="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"], 
+        div[style*="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"] *,
+        div[style*="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"], 
+        div[style*="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"] * {
+            color: #ffffff !important;
+        }
+
+        /* Ensure dark text for light backgrounds */
+        .main .block-container, .main .block-container *,
+        .element-container, .element-container *,
+        .stMetric, .stMetric * {
+            color: #2d3748 !important;
+        }
+
+        /* Exception for elements that should be white on colored backgrounds */
+        .metric-card *, 
+        .ai-badge *,
+        .enhancement-highlight *,
+        .stTabs [aria-selected="true"] *,
+        .stButton > button *,
+        div[style*="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"] *,
+        div[style*="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"] * {
+            color: #ffffff !important;
+        }
+        
+        </style>
+        """, unsafe_allow_html=True)
 
     def show_main_dashboard(self):
         """Display the main enhanced dashboard"""
+        
+        # Header with platform status
+        st.markdown("""
+        <div style='text-align: center; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                    border-radius: 15px; color: white; margin-bottom: 30px;'>
+            <h1 style='color: white; margin: 0;'>🐾 One Health AI Dashboard</h1>
+            <p style='color: rgba(255,255,255,0.9); margin: 5px 0 0 0; font-size: 1.1em;'>
+                Real-time AI-powered pet health and recovery analytics
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
         
         # AI-powered insights section
         st.markdown("### 🤖 AI-Powered Insights")
@@ -113,8 +592,7 @@ class EnhancedDashboard:
             # Species distribution
             species_data = {
                 'Species': ['Dogs', 'Cats', 'Birds', 'Rabbits', 'Others'],
-                'Count': [567, 423, 89, 67, 101],
-                'Percentage': [45.4, 33.8, 7.1, 5.4, 8.1]
+                'Count': [567, 423, 89, 67, 101]
             }
             
             fig = px.pie(
@@ -124,9 +602,11 @@ class EnhancedDashboard:
                 color_discrete_sequence=['#667eea', '#764ba2', '#f093fb', '#ff6b6b', '#feca57']
             )
             fig.update_layout(
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif"),
+                legend=dict(font=dict(size=10, color='#2c3e50'))
             )
             st.plotly_chart(fig, use_container_width=True)
         
@@ -145,9 +625,10 @@ class EnhancedDashboard:
             fig.update_layout(
                 title="Age Distribution by Species",
                 barmode='group',
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif")
             )
             st.plotly_chart(fig, use_container_width=True)
 
@@ -167,16 +648,16 @@ class EnhancedDashboard:
                 y=health_scores,
                 mode='lines+markers',
                 name='Average Health Score',
-                line=dict(color='#10b981', width=3),
-                fill='tonexty'
+                line=dict(color='#10b981', width=3)
             ))
             
             fig.update_layout(
                 title="Community Health Score Trends",
                 yaxis=dict(range=[7.5, 9.5]),
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif")
             )
             st.plotly_chart(fig, use_container_width=True)
         
@@ -184,8 +665,7 @@ class EnhancedDashboard:
             # Common health issues
             health_issues = {
                 'Condition': ['Dental Disease', 'Obesity', 'Allergies', 'Joint Issues', 'Heart Disease'],
-                'Prevalence': [28.5, 23.1, 18.7, 15.2, 8.9],
-                'Trend': ['↗️', '↘️', '➡️', '↗️', '↘️']
+                'Prevalence': [28.5, 23.1, 18.7, 15.2, 8.9]
             }
             
             fig = px.bar(
@@ -197,9 +677,10 @@ class EnhancedDashboard:
                 color_continuous_scale='Reds'
             )
             fig.update_layout(
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif")
             )
             st.plotly_chart(fig, use_container_width=True)
 
@@ -219,16 +700,16 @@ class EnhancedDashboard:
                 y=success_rates,
                 mode='lines+markers',
                 name='Success Rate',
-                line=dict(color='#667eea', width=3),
-                fill='tonexty'
+                line=dict(color='#667eea', width=3)
             ))
             
             fig.update_layout(
                 title="Monthly Recovery Success Rate (%)",
                 yaxis=dict(range=[90, 100]),
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif")
             )
             st.plotly_chart(fig, use_container_width=True)
         
@@ -246,9 +727,10 @@ class EnhancedDashboard:
                 color_discrete_sequence=['#10b981', '#34d399', '#6ee7b7', '#a7f3d0', '#d1fae5']
             )
             fig.update_layout(
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif")
             )
             st.plotly_chart(fig, use_container_width=True)
 
@@ -282,201 +764,216 @@ class EnhancedDashboard:
             fig.update_layout(
                 title="Health Risk Predictions (6 months)",
                 barmode='group',
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif")
             )
             st.plotly_chart(fig, use_container_width=True)
         
         with col2:
-            st.markdown("#### 📈 Platform Growth Forecast")
+            st.markdown("#### 📈 Registration Forecast")
             
-            # Growth prediction
-            months = pd.date_range(start='2024-01-01', periods=18, freq='M')
-            historical_users = [800, 850, 920, 980, 1050, 1120, 1200, 1280, 1350, 1420, 1500, 1580]
-            predicted_users = [1650, 1720, 1800, 1880, 1960, 2050]
+            # Registration forecast
+            future_months = ['Jan 2025', 'Feb 2025', 'Mar 2025', 'Apr 2025', 'May 2025', 'Jun 2025']
+            historical = [89, 94, 87, 102, 98, 105]
+            forecast = [108, 112, 115, 119, 123, 127]
             
             fig = go.Figure()
-            
-            # Historical data
             fig.add_trace(go.Scatter(
-                x=months[:12],
-                y=historical_users,
+                x=future_months,
+                y=historical,
                 mode='lines+markers',
                 name='Historical',
                 line=dict(color='#667eea', width=3)
             ))
-            
-            # Predicted data
             fig.add_trace(go.Scatter(
-                x=months[11:],
-                y=[historical_users[-1]] + predicted_users,
+                x=future_months,
+                y=forecast,
                 mode='lines+markers',
-                name='Predicted',
+                name='Forecast',
                 line=dict(color='#ff6b6b', width=3, dash='dash')
             ))
             
             fig.update_layout(
-                title="User Growth Forecast",
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                title="Pet Registration Forecast",
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif")
             )
             st.plotly_chart(fig, use_container_width=True)
 
     def show_analytics(self):
-        """Display comprehensive analytics dashboard"""
+        """Show comprehensive analytics dashboard"""
         
-        # AI-generated insights
-        st.markdown("### 🧠 AI-Generated Platform Insights")
+        st.markdown("## 📊 Comprehensive Analytics Dashboard")
         
-        # Generate sample insights
-        platform_data = {"sample": "data"}  # In real implementation, this would be actual platform data
-        insights = self.ai_insights_service.generate_platform_insights(platform_data)
+        # Key performance indicators
+        st.markdown("### 🎯 Key Performance Indicators")
         
-        # Display insights summary
-        col1, col2 = st.columns(2)
+        col1, col2, col3, col4 = st.columns(4)
         
         with col1:
-            st.markdown("#### 📊 Key Performance Indicators")
-            
-            kpis = insights["insights"]["pet_population_analysis"]
-            st.markdown(f"""
-            <div class="metric-card">
-                <h4>Population Analytics</h4>
-                <p><strong>Total Pets:</strong> {kpis['total_pets']:,}</p>
-                <p><strong>Growth Rate:</strong> {kpis['growth_rate']:.1f}%</p>
-                <p><strong>Dogs:</strong> {kpis['species_distribution']['dogs']:.1f}%</p>
-                <p><strong>Cats:</strong> {kpis['species_distribution']['cats']:.1f}%</p>
-                <div class="ai-badge">📈 Analytics</div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.metric(
+                label="Total Registered Pets",
+                value="1,247",
+                delta="89 this month",
+                delta_color="normal"
+            )
         
         with col2:
-            st.markdown("#### 🏥 Health Analytics")
-            
-            health_data = insights["insights"]["health_trends"]
-            st.markdown(f"""
-            <div class="metric-card">
-                <h4>Community Health</h4>
-                <p><strong>Avg Health Score:</strong> {health_data['average_health_score']:.1f}/10</p>
-                <p><strong>Vaccination Rate:</strong> {health_data['vaccination_compliance']:.1f}%</p>
-                <p><strong>Preventive Care:</strong> {health_data['preventive_care_adoption']:.1f}%</p>
-                <div class="ai-badge">🏥 Health AI</div>
-            </div>
-            """, unsafe_allow_html=True)
+            st.metric(
+                label="Recovery Success Rate",
+                value="97.1%",
+                delta="2.3% improvement",
+                delta_color="normal"
+            )
         
-        # Display recommendations
-        st.markdown("#### 💡 AI Recommendations")
+        with col3:
+            st.metric(
+                label="Average Health Score",
+                value="8.7/10",
+                delta="0.3 increase",
+                delta_color="normal"
+            )
         
-        recommendations = insights["recommendations"]
-        for i, rec in enumerate(recommendations[:3]):
-            priority_color = {
-                "High": "#ff6b6b",
-                "Medium": "#feca57",
-                "Low": "#48cae4"
-            }.get(rec["priority"], "#667eea")
-            
-            st.markdown(f"""
-            <div class="enhancement-highlight" style="border-left: 4px solid {priority_color};">
-                <strong>{rec['area']}:</strong> {rec['recommendation']}<br>
-                <small><strong>Priority:</strong> {rec['priority']} | <strong>Impact:</strong> {rec['impact']}</small>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        # Advanced charts
-        self._show_advanced_analytics()
+        with col4:
+            st.metric(
+                label="Active Veterinarians",
+                value="156",
+                delta="12 new partners",
+                delta_color="normal"
+            )
 
-    def show_breed_analytics(self):
-        """Display breed-specific analytics"""
+        # Geographic distribution
+        st.markdown("### 🗺️ Geographic Distribution")
         
-        st.markdown("### 🐕 Breed Intelligence Dashboard")
+        # Sample geographic data
+        geo_data = {
+            'Region': ['North', 'South', 'East', 'West', 'Central'],
+            'Registered Pets': [234, 189, 298, 267, 259],
+            'Recovery Rate': [96.2, 97.8, 98.1, 95.9, 97.3]
+        }
         
         col1, col2 = st.columns(2)
         
         with col1:
-            # Most popular breeds
-            breeds = ['Golden Retriever', 'Labrador', 'German Shepherd', 'Persian', 'Maine Coon']
-            counts = [156, 134, 98, 87, 76]
-            
             fig = px.bar(
-                x=counts,
-                y=breeds,
-                orientation='h',
-                title="Most Popular Breeds",
-                color=counts,
+                x=geo_data['Region'],
+                y=geo_data['Registered Pets'],
+                title="Registered Pets by Region",
+                color=geo_data['Registered Pets'],
                 color_continuous_scale='Blues'
             )
             fig.update_layout(
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif")
             )
             st.plotly_chart(fig, use_container_width=True)
         
         with col2:
-            # Breed health scores
-            breed_health = {
-                'Breed': ['Mixed Breed', 'Golden Retriever', 'Labrador', 'German Shepherd', 'Persian'],
-                'Health Score': [8.9, 8.7, 8.5, 8.2, 7.8],
-                'Sample Size': [234, 156, 134, 98, 87]
-            }
-            
-            fig = px.scatter(
-                x=breed_health['Health Score'],
-                y=breed_health['Breed'],
-                size=breed_health['Sample Size'],
-                title="Breed Health Scores",
-                color=breed_health['Health Score'],
-                color_continuous_scale='RdYlGn'
+            fig = px.bar(
+                x=geo_data['Region'],
+                y=geo_data['Recovery Rate'],
+                title="Recovery Rate by Region (%)",
+                color=geo_data['Recovery Rate'],
+                color_continuous_scale='Greens'
             )
             fig.update_layout(
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
+                plot_bgcolor='rgba(255,255,255,1)',
+                paper_bgcolor='rgba(255,255,255,1)',
+                font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+                title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif"),
+                yaxis=dict(range=[94, 100])
             )
             st.plotly_chart(fig, use_container_width=True)
 
-    def show_geographic_analytics(self):
-        """Display geographic analytics"""
+        # AI insights and recommendations
+        st.markdown("### 🤖 AI-Generated Insights & Recommendations")
         
-        st.markdown("### 🗺️ Geographic Intelligence")
-        
-        # Sample geographic data
-        regions = ['Urban Core', 'Suburbs', 'Rural Areas', 'College Towns', 'Coastal Areas']
-        registrations = [456, 789, 234, 167, 298]
-        recovery_rates = [96.2, 97.8, 94.1, 98.5, 95.7]
+        insights_data = self.ai_insights_service.generate_platform_insights({})
         
         col1, col2 = st.columns(2)
         
         with col1:
-            fig = px.bar(
-                x=regions,
-                y=registrations,
-                title="Pet Registrations by Region",
-                color=registrations,
-                color_continuous_scale='Viridis'
-            )
-            fig.update_layout(
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif")
-            )
-            st.plotly_chart(fig, use_container_width=True)
+            st.markdown("#### 📈 Platform Insights")
+            insights = insights_data['insights']
+            
+            st.markdown(f"""
+            <div class="enhancement-highlight">
+                <strong>🐾 Pet Population Analysis</strong><br>
+                <small>Total pets: {insights['pet_population_analysis']['total_pets']:,}</small><br>
+                <small>Growth rate: {insights['pet_population_analysis']['growth_rate']}%</small><br>
+                <small>Dogs: {insights['pet_population_analysis']['species_distribution']['dogs']}%</small><br>
+                <small>Cats: {insights['pet_population_analysis']['species_distribution']['cats']}%</small>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            st.markdown(f"""
+            <div class="enhancement-highlight">
+                <strong>🏥 Health Trends</strong><br>
+                <small>Avg health score: {insights['health_trends']['average_health_score']}/10</small><br>
+                <small>Vaccination compliance: {insights['health_trends']['vaccination_compliance']}%</small><br>
+                <small>Preventive care adoption: {insights['health_trends']['preventive_care_adoption']}%</small>
+            </div>
+            """, unsafe_allow_html=True)
         
         with col2:
-            fig = px.line(
-                x=regions,
-                y=recovery_rates,
-                title="Recovery Rates by Region",
-                markers=True
-            )
-            fig.update_traces(line_color='#667eea', line_width=3)
-            fig.update_layout(
-                plot_bgcolor='rgba(0,0,0,0)',
-                paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif"),
-                yaxis=dict(range=[90, 100])
-            )
-            st.plotly_chart(fig, use_container_width=True)
+            st.markdown("#### 💡 AI Recommendations")
+            recommendations = insights_data['recommendations']
+            
+            for rec in recommendations:
+                priority_color = "#ff6b6b" if rec['priority'] == "High" else "#feca57"
+                st.markdown(f"""
+                <div class="enhancement-highlight" style="background: linear-gradient(135deg, {priority_color} 0%, #f093fb 100%);">
+                    <strong>📋 {rec['area']}</strong><br>
+                    <small>{rec['recommendation']}</small><br>
+                    <small>Priority: {rec['priority']} | Impact: {rec['impact']}</small>
+                </div>
+                """, unsafe_allow_html=True)
 
+        # Performance trends
+        st.markdown("### 📈 Performance Trends")
+        
+        # Generate trend data
+        dates = pd.date_range(start='2024-01-01', periods=12, freq='M')
+        registrations = [45, 52, 48, 67, 73, 89, 95, 102, 87, 94, 108, 115]
+        recoveries = [42, 49, 47, 65, 71, 87, 92, 100, 85, 91, 105, 112]
+        
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            x=dates,
+            y=registrations,
+            mode='lines+markers',
+            name='New Registrations',
+            line=dict(color='#667eea', width=3)
+        ))
+        fig.add_trace(go.Scatter(
+            x=dates,
+            y=recoveries,
+            mode='lines+markers',
+            name='Successful Recoveries',
+            line=dict(color='#10b981', width=3)
+        ))
+        
+        fig.update_layout(
+            title="Monthly Registration vs Recovery Trends",
+            plot_bgcolor='rgba(255,255,255,1)',
+            paper_bgcolor='rgba(255,255,255,1)',
+            font=dict(family="Arial, sans-serif", size=12, color='#2c3e50'),
+            title_font=dict(size=16, color='#2c3e50', family="Arial, sans-serif"),
+            xaxis_title="Month",
+            yaxis_title="Count"
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+# Create dashboard instance for external use
+def create_dashboard(database=None):
+    """Factory function to create dashboard instance"""
+    return EnhancedDashboard(database)
+
+# For backward compatibility
+Dashboard = EnhancedDashboard

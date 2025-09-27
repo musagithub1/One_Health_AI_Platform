@@ -20,7 +20,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Enhanced Custom CSS with improved text visibility
+# FIXED CSS with proper text visibility - IMPROVED VERSION
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -28,6 +28,7 @@ st.markdown("""
     .main {
         font-family: 'Inter', sans-serif;
         background-color: #f8fafc;
+        color: #2d3748 !important;
     }
     
     .main-header {
@@ -36,7 +37,7 @@ st.markdown("""
         border-radius: 20px;
         margin-bottom: 2rem;
         text-align: center;
-        color: white;
+        color: white !important;
         box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
         position: relative;
         overflow: hidden;
@@ -58,14 +59,14 @@ st.markdown("""
         font-weight: 700;
         margin-bottom: 0.5rem;
         text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        color: white;
+        color: white !important;
     }
     
     .main-header p {
         font-size: 1.2rem;
         font-weight: 300;
         opacity: 0.9;
-        color: white;
+        color: white !important;
     }
 
     .metric-card {
@@ -74,21 +75,20 @@ st.markdown("""
         border-radius: 15px;
         box-shadow: 0 8px 32px rgba(0,0,0,0.1);
         border: 1px solid rgba(255,255,255,0.2);
-        backdrop-filter: blur(10px);
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        color: #2d3748;
+        color: #2d3748 !important;
     }
     
     .metric-card h4 {
-        color: #1a202c;
+        color: #1a202c !important;
         margin-bottom: 1rem;
         font-weight: 600;
     }
     
     .metric-card p {
-        color: #4a5568;
+        color: #4a5568 !important;
         margin-bottom: 0.5rem;
     }
     
@@ -110,43 +110,74 @@ st.markdown("""
     .sidebar .sidebar-content {
         background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
         border-radius: 0 20px 20px 0;
+        color: #2d3748 !important;
     }
     
     .sidebar .sidebar-content .block-container {
         padding-top: 2rem;
+        color: #2d3748 !important;
     }
 
+    /* FIXED BUTTON STYLES - IMPROVED TEXT VISIBILITY */
     .stButton > button {
         width: 100%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
         padding: 0.75rem 1.5rem;
         border-radius: 12px;
-        font-weight: 600;
-        font-size: 1rem;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
         transition: all 0.3s ease;
         box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
     }
 
     .stButton > button:hover {
-        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        color: white;
+        color: #ffffff !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+    }
+
+    .stButton > button:focus {
+        color: #ffffff !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+    }
+
+    .stButton > button:active {
+        color: #ffffff !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
     }
     
+    /* FIXED SELECTBOX STYLES */
     .stSelectbox > div > div {
-        background: white;
+        background: white !important;
         border-radius: 12px;
         border: 2px solid #e2e8f0;
         transition: all 0.3s ease;
-        color: #2d3748;
+        color: #2d3748 !important;
     }
     
     .stSelectbox > div > div:focus-within {
         border-color: #667eea;
         box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    /* FIXED SELECTBOX TEXT COLOR */
+    .stSelectbox div[data-baseweb="select"] > div {
+        color: #2d3748 !important;
+    }
+
+    .stSelectbox div[data-baseweb="select"] span {
+        color: #2d3748 !important;
+    }
+
+    .stSelectbox div[data-baseweb="select"] div[role="button"] {
+        color: #2d3748 !important;
     }
     
     .feature-card {
@@ -159,7 +190,7 @@ st.markdown("""
         text-align: center;
         position: relative;
         overflow: hidden;
-        color: #2d3748;
+        color: #2d3748 !important;
     }
     
     .feature-card::before {
@@ -192,12 +223,12 @@ st.markdown("""
     .feature-title {
         font-size: 1.5rem;
         font-weight: 600;
-        color: #1a202c;
+        color: #1a202c !important;
         margin-bottom: 1rem;
     }
     
     .feature-description {
-        color: #4a5568;
+        color: #4a5568 !important;
         line-height: 1.6;
     }
     
@@ -216,7 +247,7 @@ st.markdown("""
         box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         border: 1px solid rgba(255,255,255,0.2);
         transition: all 0.3s ease;
-        color: #2d3748;
+        color: #2d3748 !important;
     }
     
     .stat-item:hover {
@@ -233,23 +264,25 @@ st.markdown("""
     }
     
     .stat-label {
-        color: #4a5568;
+        color: #4a5568 !important;
         font-weight: 500;
         text-transform: uppercase;
         font-size: 0.875rem;
         letter-spacing: 0.05em;
     }
     
+    /* FIXED AI BADGE - ENSURED WHITE TEXT */
     .ai-badge {
-        background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-        color: white;
+        background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%) !important;
+        color: #ffffff !important;
         padding: 0.5rem 1rem;
         border-radius: 20px;
         font-size: 0.875rem;
-        font-weight: 600;
+        font-weight: 600 !important;
         display: inline-block;
         margin: 0.5rem 0;
         box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
     }
     
     .demo-banner {
@@ -258,7 +291,7 @@ st.markdown("""
         border-radius: 15px;
         text-align: center;
         margin-bottom: 2rem;
-        color: #2d3748;
+        color: #2d3748 !important;
         font-weight: 600;
         box-shadow: 0 5px 20px rgba(255, 154, 158, 0.3);
     }
@@ -268,34 +301,73 @@ st.markdown("""
         padding: 1rem;
         border-radius: 10px;
         margin: 1rem 0;
-        color: #2d3748;
+        color: #2d3748 !important;
         font-weight: 500;
         border-left: 4px solid #10b981;
     }
     
-    /* Improved text visibility for all elements */
+    /* IMPROVED TEXT VISIBILITY - COMPREHENSIVE FIXES */
     h1, h2, h3, h4, h5, h6 {
         color: #1a202c !important;
     }
     
-    p, div, span {
-        color: #4a5568 !important;
+    p, div, span, label {
+        color: #2d3748 !important;
     }
     
     .stMarkdown {
-        color: #4a5568;
+        color: #2d3748 !important;
     }
     
-    /* Sidebar text improvements */
+    .stMarkdown p {
+        color: #2d3748 !important;
+    }
+    
+    .stMarkdown div {
+        color: #2d3748 !important;
+    }
+    
+    /* Sidebar text improvements - ENHANCED */
     .sidebar .sidebar-content {
-        color: #2d3748;
+        color: #2d3748 !important;
     }
     
     .sidebar .sidebar-content h1,
     .sidebar .sidebar-content h2,
     .sidebar .sidebar-content h3,
-    .sidebar .sidebar-content p {
+    .sidebar .sidebar-content h4,
+    .sidebar .sidebar-content h5,
+    .sidebar .sidebar-content h6,
+    .sidebar .sidebar-content p,
+    .sidebar .sidebar-content span,
+    .sidebar .sidebar-content div,
+    .sidebar .sidebar-content label {
         color: #2d3748 !important;
+    }
+
+    /* FIXED SIDEBAR FEATURE BOXES - WHITE TEXT WHERE NEEDED */
+    .sidebar div[style*="background: linear-gradient(135deg, #667eea, #764ba2)"] {
+        color: #ffffff !important;
+    }
+
+    .sidebar div[style*="background: linear-gradient(135deg, #667eea, #764ba2)"] strong {
+        color: #ffffff !important;
+    }
+
+    .sidebar div[style*="background: linear-gradient(135deg, #667eea, #764ba2)"] small {
+        color: #ffffff !important;
+    }
+
+    .sidebar div[style*="background: linear-gradient(135deg, #ff6b6b, #feca57)"] {
+        color: #ffffff !important;
+    }
+
+    .sidebar div[style*="background: linear-gradient(135deg, #ff6b6b, #feca57)"] strong {
+        color: #ffffff !important;
+    }
+
+    .sidebar div[style*="background: linear-gradient(135deg, #ff6b6b, #feca57)"] small {
+        color: #ffffff !important;
     }
     
     /* Chart container improvements */
@@ -303,7 +375,7 @@ st.markdown("""
         color: #2d3748;
     }
     
-    /* Tab improvements */
+    /* FIXED TAB IMPROVEMENTS - BETTER TEXT VISIBILITY */
     .stTabs [data-baseweb="tab-list"] {
         gap: 2px;
     }
@@ -311,42 +383,74 @@ st.markdown("""
     .stTabs [data-baseweb="tab"] {
         height: 50px;
         white-space: pre-wrap;
-        background-color: #f8fafc;
+        background-color: #f8fafc !important;
         border-radius: 10px 10px 0 0;
         gap: 1px;
         padding: 10px 20px;
-        color: #4a5568;
+        color: #4a5568 !important;
+        font-weight: 500 !important;
     }
     
     .stTabs [aria-selected="true"] {
-        background-color: #667eea;
-        color: white !important;
+        background-color: #667eea !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
     }
     
-    /* Input field text color */
+    /* Input field text color - ENHANCED */
     .stTextInput input, .stTextArea textarea {
         color: #2d3748 !important;
+        background-color: #ffffff !important;
     }
     
     .stNumberInput input {
         color: #2d3748 !important;
+        background-color: #ffffff !important;
     }
     
     .stDateInput input {
         color: #2d3748 !important;
+        background-color: #ffffff !important;
     }
     
     .stTimeInput input {
         color: #2d3748 !important;
+        background-color: #ffffff !important;
     }
     
-    /* Select box text color */
+    /* Select box text color - COMPREHENSIVE FIX */
     .stSelectbox div[data-baseweb="select"] {
+        color: #2d3748 !important;
+        background-color: #ffffff !important;
+    }
+
+    .stSelectbox div[data-baseweb="select"] > div {
+        color: #2d3748 !important;
+    }
+
+    .stSelectbox div[data-baseweb="select"] span {
+        color: #2d3748 !important;
+    }
+
+    .stSelectbox div[data-baseweb="select"] div[role="button"] {
+        color: #2d3748 !important;
+    }
+
+    .stSelectbox div[data-baseweb="select"] div[role="button"] span {
         color: #2d3748 !important;
     }
     
     /* File uploader text */
     .stFileUploader label {
+        color: #2d3748 !important;
+    }
+
+    .stFileUploader div {
+        color: #2d3748 !important;
+    }
+
+    .stFileUploader span {
         color: #2d3748 !important;
     }
     
@@ -363,12 +467,177 @@ st.markdown("""
     
     /* Success, warning, error messages */
     .stAlert {
-        color: #2d3748;
+        color: #2d3748 !important;
+    }
+
+    .stAlert div {
+        color: #2d3748 !important;
+    }
+
+    .stAlert span {
+        color: #2d3748 !important;
     }
     
     /* Code blocks */
     .stCodeBlock {
-        color: #2d3748;
+        color: #2d3748 !important;
+    }
+    
+    /* Streamlit default text elements - COMPREHENSIVE */
+    .stText, .stMarkdown, .stWrite {
+        color: #2d3748 !important;
+    }
+
+    .stText div, .stMarkdown div, .stWrite div {
+        color: #2d3748 !important;
+    }
+
+    .stText p, .stMarkdown p, .stWrite p {
+        color: #2d3748 !important;
+    }
+
+    .stText span, .stMarkdown span, .stWrite span {
+        color: #2d3748 !important;
+    }
+    
+    /* Ensure all Streamlit text is visible */
+    .element-container {
+        color: #2d3748 !important;
+    }
+
+    .element-container div {
+        color: #2d3748 !important;
+    }
+
+    .element-container p {
+        color: #2d3748 !important;
+    }
+
+    .element-container span {
+        color: #2d3748 !important;
+    }
+    
+    /* Main content area - ENHANCED */
+    .main .block-container {
+        color: #2d3748 !important;
+    }
+
+    .main .block-container div {
+        color: #2d3748 !important;
+    }
+
+    .main .block-container p {
+        color: #2d3748 !important;
+    }
+
+    .main .block-container span {
+        color: #2d3748 !important;
+    }
+
+    /* ADDITIONAL FIXES FOR SPECIFIC STREAMLIT COMPONENTS */
+    
+    /* Radio button text */
+    .stRadio label {
+        color: #2d3748 !important;
+    }
+
+    .stRadio div {
+        color: #2d3748 !important;
+    }
+
+    /* Checkbox text */
+    .stCheckbox label {
+        color: #2d3748 !important;
+    }
+
+    .stCheckbox div {
+        color: #2d3748 !important;
+    }
+
+    /* Slider text */
+    .stSlider label {
+        color: #2d3748 !important;
+    }
+
+    .stSlider div {
+        color: #2d3748 !important;
+    }
+
+    /* Metric text */
+    .stMetric label {
+        color: #2d3748 !important;
+    }
+
+    .stMetric div {
+        color: #2d3748 !important;
+    }
+
+    /* Progress bar text */
+    .stProgress div {
+        color: #2d3748 !important;
+    }
+
+    /* Caption text */
+    .stCaption {
+        color: #4a5568 !important;
+    }
+
+    /* Form labels */
+    .stForm label {
+        color: #2d3748 !important;
+    }
+
+    .stForm div {
+        color: #2d3748 !important;
+    }
+
+    /* Dataframe text */
+    .stDataFrame {
+        color: #2d3748 !important;
+    }
+
+    /* JSON text */
+    .stJson {
+        color: #2d3748 !important;
+    }
+
+    /* OVERRIDE ANY REMAINING TEXT COLOR ISSUES */
+    * {
+        color: inherit !important;
+    }
+
+    /* But ensure specific elements maintain their intended colors */
+    .main-header, .main-header *, 
+    .ai-badge, .ai-badge *,
+    .stTabs [aria-selected="true"], .stTabs [aria-selected="true"] *,
+    .stButton > button, .stButton > button *,
+    div[style*="background: linear-gradient(135deg, #667eea, #764ba2)"], 
+    div[style*="background: linear-gradient(135deg, #667eea, #764ba2)"] *,
+    div[style*="background: linear-gradient(135deg, #ff6b6b, #feca57)"], 
+    div[style*="background: linear-gradient(135deg, #ff6b6b, #feca57)"] * {
+        color: #ffffff !important;
+    }
+
+    /* Ensure dark text for light backgrounds */
+    .metric-card, .metric-card *,
+    .feature-card, .feature-card *,
+    .stat-item, .stat-item *,
+    .demo-banner, .demo-banner *,
+    .enhancement-highlight, .enhancement-highlight *,
+    .main .block-container, .main .block-container *,
+    .sidebar .sidebar-content, .sidebar .sidebar-content *,
+    .element-container, .element-container * {
+        color: #2d3748 !important;
+    }
+
+    /* Exception for elements that should be white on colored backgrounds */
+    .main-header *, 
+    .ai-badge *,
+    .stTabs [aria-selected="true"] *,
+    .stButton > button *,
+    div[style*="background: linear-gradient(135deg, #667eea, #764ba2)"] *,
+    div[style*="background: linear-gradient(135deg, #ff6b6b, #feca57)"] * {
+        color: #ffffff !important;
     }
     
     /* Animation classes */
@@ -550,7 +819,7 @@ class EnhancedOneHealthApp:
             fig.update_layout(
                 plot_bgcolor='rgba(0,0,0,0)',
                 paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif"),
+                font=dict(color="#2d3748", family="Inter, sans-serif"),
                 title_font_color="#1a202c",
                 xaxis_title_font_color="#4a5568",
                 yaxis_title_font_color="#4a5568"
@@ -567,7 +836,7 @@ class EnhancedOneHealthApp:
             fig.update_layout(
                 plot_bgcolor='rgba(0,0,0,0)',
                 paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif"),
+                font=dict(color="#2d3748", family="Inter, sans-serif"),
                 title_font_color="#1a202c"
             )
             st.plotly_chart(fig, use_container_width=True)
@@ -697,7 +966,7 @@ class EnhancedOneHealthApp:
                 title="Pet Weight Trend",
                 plot_bgcolor='rgba(0,0,0,0)',
                 paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif"),
+                font=dict(color="#2d3748", family="Inter, sans-serif"),
                 title_font_color="#1a202c",
                 xaxis_title_font_color="#4a5568",
                 yaxis_title_font_color="#4a5568"
@@ -739,25 +1008,25 @@ class EnhancedOneHealthApp:
             fig.update_layout(
                 plot_bgcolor='rgba(0,0,0,0)',
                 paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif"),
+                font=dict(color="#2d3748", family="Inter, sans-serif"),
                 title_font_color="#1a202c",
                 showlegend=False
             )
             st.plotly_chart(fig, use_container_width=True)
         
         with col2:
-            # Age distribution - FIXED: Use px.pie with hole parameter for donut chart
+            # Age distribution
             st.markdown("### 🎂 Age Distribution")
             age_data = {'Age Group': ['0-1 years', '1-3 years', '3-7 years', '7+ years'],
                        'Count': [234, 456, 389, 168]}
             
             fig = px.pie(values=age_data['Count'], names=age_data['Age Group'],
-                        hole=0.4,  # This creates the donut chart effect
+                        hole=0.4,
                         color_discrete_sequence=['#667eea', '#764ba2', '#f093fb', '#ff6b6b'])
             fig.update_layout(
                 plot_bgcolor='rgba(0,0,0,0)',
                 paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif"),
+                font=dict(color="#2d3748", family="Inter, sans-serif"),
                 title_font_color="#1a202c"
             )
             st.plotly_chart(fig, use_container_width=True)
@@ -775,7 +1044,7 @@ class EnhancedOneHealthApp:
                 title="Monthly Recovery Success Rate (%)",
                 plot_bgcolor='rgba(0,0,0,0)',
                 paper_bgcolor='rgba(0,0,0,0)',
-                font=dict(family="Inter, sans-serif"),
+                font=dict(color="#2d3748", family="Inter, sans-serif"),
                 title_font_color="#1a202c",
                 yaxis=dict(range=[90, 100])
             )
@@ -868,56 +1137,64 @@ class EnhancedOneHealthApp:
                         )),
                     showlegend=False,
                     title="Pet Matching Score Analysis",
-                    font=dict(family="Inter, sans-serif"),
+                    font=dict(color="#2d3748", family="Inter, sans-serif"),
                     title_font_color="#1a202c"
                 )
                 st.plotly_chart(fig, use_container_width=True)
         
         with tab3:
-            st.markdown("### 📊 Predictive Health Analytics")
+            st.markdown("### 📊 Health Prediction Models")
+            col1, col2 = st.columns(2)
             
-            # Health prediction visualization
-            fig = make_subplots(
-                rows=2, cols=2,
-                subplot_titles=('Weight Trend', 'Activity Level', 'Health Score', 'Risk Factors'),
-                specs=[[{"secondary_y": False}, {"secondary_y": False}],
-                       [{"secondary_y": False}, {"secondary_y": False}]]
-            )
+            with col1:
+                st.markdown("""
+                **Predictive Capabilities:**
+                - Weight trend analysis
+                - Vaccination scheduling
+                - Health risk assessment
+                - Behavioral pattern detection
+                
+                **Machine Learning Models:**
+                - Time series forecasting
+                - Anomaly detection
+                - Classification algorithms
+                - Regression analysis
+                """)
             
-            # Weight trend
-            dates = pd.date_range(start='2024-01-01', periods=12, freq='M')
-            weight = [25.2, 25.5, 25.8, 26.1, 26.0, 25.9, 25.7, 25.8, 26.2, 26.5, 26.8, 27.1]
-            fig.add_trace(go.Scatter(x=dates, y=weight, name='Weight'), row=1, col=1)
-            
-            # Activity level
-            activity = [8.2, 8.5, 7.8, 8.1, 8.0, 7.9, 8.3, 8.2, 7.8, 8.1, 8.4, 8.2]
-            fig.add_trace(go.Scatter(x=dates, y=activity, name='Activity'), row=1, col=2)
-            
-            # Health score
-            health_score = [8.5, 8.7, 8.3, 8.6, 8.4, 8.2, 8.8, 8.6, 8.1, 8.3, 8.7, 8.5]
-            fig.add_trace(go.Scatter(x=dates, y=health_score, name='Health Score'), row=2, col=1)
-            
-            # Risk factors
-            risk_categories = ['Obesity', 'Dental', 'Joint', 'Heart', 'Kidney']
-            risk_scores = [15, 8, 12, 5, 3]
-            fig.add_trace(go.Bar(x=risk_categories, y=risk_scores, name='Risk %'), row=2, col=2)
-            
-            fig.update_layout(height=600, showlegend=False, title_text="Comprehensive Health Analytics")
-            st.plotly_chart(fig, use_container_width=True)
+            with col2:
+                # Health prediction chart
+                months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug']
+                actual = [8.2, 8.1, 8.3, 8.0, 8.4, 8.2, 8.5, 8.3]
+                predicted = [8.1, 8.2, 8.0, 8.3, 8.1, 8.4, 8.2, 8.5]
+                
+                fig = go.Figure()
+                fig.add_trace(go.Scatter(x=months, y=actual, mode='lines+markers',
+                                       name='Actual Health Score', line=dict(color='#667eea')))
+                fig.add_trace(go.Scatter(x=months, y=predicted, mode='lines+markers',
+                                       name='Predicted Score', line=dict(color='#ff6b6b', dash='dash')))
+                
+                fig.update_layout(
+                    title="Health Score Prediction",
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    font=dict(color="#2d3748", family="Inter, sans-serif"),
+                    title_font_color="#1a202c"
+                )
+                st.plotly_chart(fig, use_container_width=True)
         
         with tab4:
             st.markdown("### 🧠 Smart Insights & Recommendations")
             
+            # Smart insights cards
             col1, col2 = st.columns(2)
             
             with col1:
                 st.markdown("""
                 <div class="metric-card">
                     <h4>🎯 Personalized Recommendations</h4>
-                    <p><strong>Diet Adjustment:</strong> Reduce daily intake by 10%</p>
-                    <p><strong>Exercise:</strong> Increase walks to 45 min/day</p>
-                    <p><strong>Checkup:</strong> Schedule dental exam</p>
-                    <p><strong>Vaccination:</strong> Rabies due in 2 months</p>
+                    <p><strong>Diet Optimization:</strong> Reduce protein by 5%</p>
+                    <p><strong>Exercise Plan:</strong> Increase daily walks by 10 minutes</p>
+                    <p><strong>Health Monitoring:</strong> Schedule dental checkup</p>
                     <div class="ai-badge">🤖 AI Generated</div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -925,58 +1202,71 @@ class EnhancedOneHealthApp:
             with col2:
                 st.markdown("""
                 <div class="metric-card">
-                    <h4>📊 Health Trends</h4>
-                    <p><strong>Weight Trend:</strong> ↗️ Gradual increase</p>
-                    <p><strong>Activity:</strong> ➡️ Stable</p>
-                    <p><strong>Appetite:</strong> ↗️ Increased</p>
-                    <p><strong>Energy Level:</strong> ↘️ Slightly decreased</p>
-                    <div class="ai-badge">📈 Trend Analysis</div>
+                    <h4>📊 Behavioral Analysis</h4>
+                    <p><strong>Activity Level:</strong> Above average (+15%)</p>
+                    <p><strong>Sleep Pattern:</strong> Consistent and healthy</p>
+                    <p><strong>Social Behavior:</strong> Highly interactive</p>
+                    <div class="ai-badge">📈 Data Driven</div>
                 </div>
                 """, unsafe_allow_html=True)
 
     def show_enhanced_about(self):
-        """Enhanced about page with modern design"""
+        """Enhanced about page with comprehensive information"""
         st.markdown('<h2 class="fade-in-up">ℹ️ About One Health AI Platform</h2>', unsafe_allow_html=True)
-
+        
+        st.markdown("""
+        <div class="demo-banner">
+            🌟 Advanced Demo Version - Showcasing Next-Generation Pet Healthcare Technology
+        </div>
+        """, unsafe_allow_html=True)
+        
         # Platform overview
         col1, col2 = st.columns(2)
-
+        
         with col1:
+            st.markdown("### 🎯 Mission Statement")
             st.markdown("""
-            <div class="feature-card">
-                <span class="feature-icon">🎯</span>
-                <div class="feature-title">Our Mission</div>
-                <div class="feature-description">
-                    Revolutionizing pet healthcare through cutting-edge AI technology, 
-                    connecting pet owners, veterinarians, and communities for better pet health outcomes.
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-
+            Our mission is to revolutionize pet healthcare through advanced AI technology, 
+            creating a comprehensive ecosystem that connects pet owners, veterinarians, 
+            and healthcare providers for optimal animal welfare.
+            """)
+            
+            st.markdown("### 🚀 Key Features")
+            st.markdown("""
+            - **AI-Powered Breed Detection**: 95%+ accuracy
+            - **Smart Pet Recovery**: Computer vision matching
+            - **Predictive Health Analytics**: Early warning systems
+            - **Digital Medical Records**: Comprehensive health tracking
+            - **QR Code Integration**: Instant pet identification
+            - **Real-time Monitoring**: 24/7 health surveillance
+            """)
+        
         with col2:
+            st.markdown("### 🏆 Platform Statistics")
             st.markdown("""
-            <div class="feature-card">
-                <span class="feature-icon">🌟</span>
-                <div class="feature-title">Key Innovations</div>
-                <div class="feature-description">
-                    AI-powered breed detection, predictive health analytics, smart pet matching, 
-                    and comprehensive digital health records management.
-                </div>
+            <div class="metric-card">
+                <h4>📊 Impact Metrics</h4>
+                <p><strong>Registered Pets:</strong> 1,247+</p>
+                <p><strong>Recovery Success Rate:</strong> 98.5%</p>
+                <p><strong>Health Records:</strong> 3,456+</p>
+                <p><strong>AI Predictions:</strong> 10,000+</p>
+                <p><strong>Veterinary Partners:</strong> 150+</p>
+                <div class="ai-badge">📈 Growing Daily</div>
             </div>
             """, unsafe_allow_html=True)
 
         # Technology stack
-        st.markdown("### 🔧 Advanced Technology Stack")
+        st.markdown("### 🛠️ Technology Stack")
         
         col1, col2, col3 = st.columns(3)
         
         with col1:
             st.markdown("""
-            **Frontend Technologies:**
-            - Streamlit with custom CSS
-            - Plotly for interactive charts
+            **Frontend & UI:**
+            - Streamlit framework
+            - Modern CSS3 animations
             - Responsive design
-            - Modern UI components
+            - Interactive visualizations
             """)
         
         with col2:
